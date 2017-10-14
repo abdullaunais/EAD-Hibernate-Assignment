@@ -20,16 +20,16 @@ public class RoleHelper {
     public RoleHelper() {
         this.session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
-    
-    public List getRoles() {
-    List<Role> roleList = null;
-    try {
-        org.hibernate.Transaction tx = session.beginTransaction();
-        Query q = session.createQuery ("from role as role");
+
+    public List getRoleTitles(int startID, int endID) {
+        List<Role> roleList = null;
+        try {
+            org.hibernate.Transaction tx = session.beginTransaction();
+            Query q = session.createQuery ("select from Role where roleid between "+ startID +" and "+ endID);
         roleList = (List<Role>) q.list();
-    } catch (Exception e) {
-        e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return roleList;
     }
-    return roleList;
-}
 }
