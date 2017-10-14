@@ -102,8 +102,17 @@ public class EmployeeController implements Serializable {
         current = (Employee) getEmployees().getRowData();
         return "browse_employee";
     }
+    
     public String prepareList(){
         recreateModel();
         return "employee_list";
+    }
+    
+    public String goToEmployees() {
+        return "employee_list";
+    }
+    
+    public String goToRoles() {
+        return "role_list";
     }
 }

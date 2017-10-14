@@ -30,12 +30,12 @@ public class RoleController implements Serializable {
 
     private Role current;
     private int selectedItemIndex;
-    
+
     /**
      * Creates a new instance of RoleController
      */
     public RoleController() {
-     helper = new RoleHelper();
+        helper = new RoleHelper();
         startId = 1;
         endId = 50;
     }
@@ -54,7 +54,6 @@ public class RoleController implements Serializable {
         return current;
     }
 
-
     public DataModel getRoles() {
         if (roleTitles == null) {
             roleTitles = new ListDataModel(helper.getRoles(startId, endId));
@@ -65,7 +64,7 @@ public class RoleController implements Serializable {
     void recreateModel() {
         roleTitles = null;
     }
-    
+
     public boolean isHasNextPage() {
         if (endId + pageSize <= recordCount) {
             return true;
@@ -74,14 +73,14 @@ public class RoleController implements Serializable {
     }
 
     public boolean isHasPreviousPage() {
-        if (startId-pageSize > 0) {
+        if (startId - pageSize > 0) {
             return true;
         }
         return false;
     }
 
     public String next() {
-        startId = endId+1;
+        startId = endId + 1;
         endId = endId + pageSize;
         recreateModel();
         return "index";
@@ -98,16 +97,21 @@ public class RoleController implements Serializable {
         return pageSize;
     }
 
-    public String prepareView(){
+    public String prepareView() {
         current = (Role) getRoles().getRowData();
         return "browse_role";
     }
-    public String prepareList(){
+
+    public String prepareList() {
         recreateModel();
         return "index";
     }
-    
+
     public String goToEmployees() {
         return "employee_list";
+    }
+
+    public String goToRoles() {
+        return "role_list";
     }
 }
