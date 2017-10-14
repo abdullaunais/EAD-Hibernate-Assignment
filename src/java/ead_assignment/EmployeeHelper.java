@@ -20,11 +20,11 @@ public class EmployeeHelper {
         this.session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
-    public List getEmployees() {
+    public List getEmployees(int startId, int endId) {
         List<Employee> empList = null;
         try {
             org.hibernate.Transaction tx = session.beginTransaction();
-            Query q = session.createQuery("from employee as employee");
+            Query q = session.createQuery("select from Employee where employeeid between "+ startId +" and "+ endId);
             empList = (List<Employee>) q.list();
         } catch (Exception e) {
             e.printStackTrace();

@@ -36,3 +36,17 @@ create table employee_tasks (
 );
 
 insert into role values (1, 'Software Engineer');
+insert into role values (2, 'Senior Software Engineer');
+insert into role values (3, 'Web Developer');
+insert into role values (4, 'Database Administrator');
+insert into role values (5, 'Tech Lead');
+
+insert into employee values (1, 'Kamal', 1);
+insert into employee values (2, 'Sunil', 1);
+insert into employee values (3, 'Amal', 2);
+insert into employee values (4, 'Jagath', 3);
+insert into employee values (5, 'David', 3);
+insert into employee values (6, 'John', 4);
+insert into employee values (7, 'Larry', 5);
+
+

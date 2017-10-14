@@ -21,7 +21,7 @@ public class RoleHelper {
         this.session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
-    public List getRoleTitles(int startID, int endID) {
+    public List getRoles(int startID, int endID) {
         List<Role> roleList = null;
         try {
             org.hibernate.Transaction tx = session.beginTransaction();

@@ -16,54 +16,54 @@ import javax.faces.model.ListDataModel;
  *
  * @author Nutt
  */
-@Named(value = "roleController")
+@Named(value = "employeeController")
 @ManagedBean
 @SessionScoped
-public class RoleController implements Serializable {
+public class EmployeeController implements Serializable {
 
     int startId;
     int endId;
-    DataModel roleTitles;
-    RoleHelper helper;
+    DataModel employees;
+    EmployeeHelper helper;
     private int recordCount = 1000;
     private int pageSize = 10;
 
-    private Role current;
+    private Employee current;
     private int selectedItemIndex;
     
     /**
-     * Creates a new instance of RoleController
+     * Creates a new instance of EmployeeController
      */
-    public RoleController() {
-     helper = new RoleHelper();
+    public EmployeeController() {
+    helper = new EmployeeHelper();
         startId = 1;
         endId = 50;
     }
 
-    public RoleController(int startId, int endId) {
-        helper = new RoleHelper();
+    public EmployeeController(int startId, int endId) {
+        helper = new EmployeeHelper();
         this.startId = startId;
         this.endId = endId;
     }
 
-    public Role getSelected() {
+    public Employee getSelected() {
         if (current == null) {
-            current = new Role();
+            current = new Employee();
             selectedItemIndex = -1;
         }
         return current;
     }
 
 
-    public DataModel getRoles() {
-        if (roleTitles == null) {
-            roleTitles = new ListDataModel(helper.getRoles(startId, endId));
+    public DataModel getEmployees() {
+        if (employees == null) {
+            employees = new ListDataModel(helper.getEmployees(startId, endId));
         }
-        return roleTitles;
+        return employees;
     }
 
     void recreateModel() {
-        roleTitles = null;
+        employees = null;
     }
     
     public boolean isHasNextPage() {
@@ -84,14 +84,14 @@ public class RoleController implements Serializable {
         startId = endId+1;
         endId = endId + pageSize;
         recreateModel();
-        return "index";
+        return "employee_list";
     }
 
     public String previous() {
         startId = startId - pageSize;
         endId = endId - pageSize;
         recreateModel();
-        return "index";
+        return "employee_list";
     }
 
     public int getPageSize() {
@@ -99,15 +99,11 @@ public class RoleController implements Serializable {
     }
 
     public String prepareView(){
-        current = (Role) getRoles().getRowData();
-        return "browse_role";
+        current = (Employee) getEmployees().getRowData();
+        return "browse_employee";
     }
     public String prepareList(){
         recreateModel();
-        return "index";
-    }
-    
-    public String goToEmployees() {
         return "employee_list";
     }
 }
