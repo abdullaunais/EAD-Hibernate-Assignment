@@ -23,6 +23,12 @@ public class EmployeeHelper {
         this.session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
+    /**
+     * Get all employees
+     * @param startId
+     * @param endId
+     * @return employee list as java.util.List
+     */
     public List getEmployees(int startId, int endId) {
         List<Employee> empList = null;
         org.hibernate.Transaction tx;
@@ -38,6 +44,12 @@ public class EmployeeHelper {
         return empList;
     }
     
+    /**
+     * Add New Employee Method
+     * @param name
+     * @param roleId
+     * @return employee object
+     */
     public Employee createEmployee(String name,int roleId){
         Employee employee = null;
         try{
@@ -62,6 +74,11 @@ public class EmployeeHelper {
         return employee;
     }
     
+    /**
+     * Update Employee Details
+     * @param name
+     * @param empID 
+     */
     public void updateEmployee(String name,int empID){
         try{
             org.hibernate.Transaction tx = session.beginTransaction();

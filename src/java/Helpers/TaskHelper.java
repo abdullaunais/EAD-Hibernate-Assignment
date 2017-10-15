@@ -23,6 +23,13 @@ public class TaskHelper {
         this.session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
+    /**
+     * Get All Tasks
+     *
+     * @param startID
+     * @param endID
+     * @return list of tasks
+     */
     public List getTasks(int startID, int endID) {
         List<Task> taskList = null;
         try {
@@ -35,13 +42,19 @@ public class TaskHelper {
         return taskList;
     }
 
+    /**
+     * Add New task
+     *
+     * @param desc
+     * @return task object
+     */
     public Task createTask(String desc) {
         Task task = null;
         try {
             org.hibernate.Transaction tx = session.beginTransaction();
             task = new Task();
             task.setDescription(desc);
-            Query cq = session.createSQLQuery("insert into Task values (default, '" + task.getDescription()+ "', null)");
+            Query cq = session.createSQLQuery("insert into Task values (default, '" + task.getDescription() + "', null)");
             cq.executeUpdate();
 
             //session.save(employee);
@@ -51,5 +64,26 @@ public class TaskHelper {
             e.printStackTrace();
         }
         return task;
+    }
+
+    /**
+     * Update Task
+     * @param description
+     * @param taskID 
+     */
+    public void updateTask(String description, int taskID) {
+        try {
+            org.hibernate.Transaction tx = session.beginTransaction();
+            Task dbRole = (Task) session.createQuery(
+                    "select t from Task as t where t.taskid = :eid"
+            ).setParameter("eid", taskID).uniqueResult();
+
+            dbRole.setDescription(description);
+            session.update(dbRole);
+            tx.commit();
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 }

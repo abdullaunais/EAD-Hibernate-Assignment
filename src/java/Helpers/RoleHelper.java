@@ -23,25 +23,37 @@ public class RoleHelper {
         this.session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
+    /**
+     * Get all roles
+     *
+     * @param startID
+     * @param endID
+     * @return list of roles
+     */
     public List getRoles(int startID, int endID) {
         List<Role> roleList = null;
         try {
             org.hibernate.Transaction tx = session.beginTransaction();
-            Query q = session.createQuery ("select from Role where roleid between "+ startID +" and "+ endID);
-        roleList = (List<Role>) q.list();
+            Query q = session.createQuery("select from Role where roleid between " + startID + " and " + endID);
+            roleList = (List<Role>) q.list();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return roleList;
     }
-    
+
+    /**
+     * Add new role
+     * @param title
+     * @return
+     */
     public Role createRole(String title) {
         Role role = null;
         try {
             org.hibernate.Transaction tx = session.beginTransaction();
             role = new Role();
             role.setTitle(title);
-            Query cq = session.createSQLQuery("insert into Role values (default, '" + role.getTitle()+ "')");
+            Query cq = session.createSQLQuery("insert into Role values (default, '" + role.getTitle() + "')");
             cq.executeUpdate();
 
             //session.save(employee);
@@ -51,5 +63,26 @@ public class RoleHelper {
             e.printStackTrace();
         }
         return role;
+    }
+
+    /**
+     * Update a Role
+     * @param title
+     * @param roleID 
+     */
+    public void updateRole(String title, int roleID) {
+        try {
+            org.hibernate.Transaction tx = session.beginTransaction();
+            Role dbRole = (Role) session.createQuery(
+                    "select r from Role as r where r.roleid = :eid"
+            ).setParameter("eid", roleID).uniqueResult();
+
+            dbRole.setTitle(title);
+            session.update(dbRole);
+            tx.commit();
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 }
