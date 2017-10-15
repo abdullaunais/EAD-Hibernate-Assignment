@@ -1,4 +1,4 @@
-package ead_assignment;
+package Models;
 // Generated Oct 14, 2017 3:53:01 PM by Hibernate Tools 4.3.1
 
 

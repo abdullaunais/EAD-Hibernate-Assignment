@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ead_assignment;
+package Controllers;
 
+import Helpers.EmployeeHelper;
+import Helpers.RoleHelper;
+import Models.Employee;
+import Models.Role;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;

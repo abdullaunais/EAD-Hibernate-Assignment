@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ead_assignment;
+package Controllers;
 
+import Helpers.TaskHelper;
+import Models.Task;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.Iterator;
-import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -18,73 +18,73 @@ import javax.faces.model.ListDataModel;
  *
  * @author Nutt
  */
-@Named(value = "roleController")
+@Named(value = "taskController")
 @ManagedBean
 @SessionScoped
-public class RoleController implements Serializable {
+public class TaskController implements Serializable {
 
     int startId;
     int endId;
-    DataModel roleTitles;
-    RoleHelper helper;
+    DataModel tasks;
+    TaskHelper helper;
     private int recordCount = 1000;
-    private int pageSize = 10;
+    private int pageSize = 50;
 
-    private Role current;
+    private Task current;
     private int selectedItemIndex;
-    private String newTitle;
+    private String newDescription;
 
     /**
-     * Creates a new instance of RoleController
+     * Creates a new instance of TaskController
      */
-    public RoleController() {
-        helper = new RoleHelper();
+    public TaskController() {
+        helper = new TaskHelper();
         startId = 1;
-        endId = 50;
+        endId = 10;
     }
 
-    public RoleController(int startId, int endId) {
-        helper = new RoleHelper();
+    public TaskController(int startId, int endId) {
+        helper = new TaskHelper();
         this.startId = startId;
         this.endId = endId;
     }
-    
-    public String getNewTitle() {
-        return newTitle;
-    }
-    
-    public void setNewTitle(String newTitle) {
-        this.newTitle = newTitle;
-    }
-    
-    public String saveRole() {
-        System.out.println("description: " + this.newTitle);
 
-        helper = new RoleHelper();
-        current = helper.createRole(this.newTitle);
-        recreateModel();
-        getRoles();
-        return "role_list";
-    }
-
-    public Role getSelected() {
+    public Task getSelected() {
         if (current == null) {
-            current = new Role();
+            current = new Task();
             selectedItemIndex = -1;
         }
         return current;
     }
-    
-    public DataModel getRoles() {
-        helper = new RoleHelper();
-        if (roleTitles == null) {
-            roleTitles = new ListDataModel(helper.getRoles(startId, endId));
+
+    public DataModel getTasks() {
+        helper = new TaskHelper();
+        if (tasks == null) {
+            tasks = new ListDataModel(helper.getTasks(startId, endId));
         }
-        return roleTitles;
+        return tasks;
     }
 
     void recreateModel() {
-        roleTitles = null;
+        tasks = null;
+    }
+    
+    public String getNewDescription() {
+        return newDescription;
+    }
+    
+    public void setNewDescription(String newDescription) {
+        this.newDescription = newDescription;
+    }
+
+    public String saveTask() {
+        System.out.println("description: " + this.newDescription);
+
+        helper = new TaskHelper();
+        current = helper.createTask(this.newDescription);
+        recreateModel();
+        getTasks();
+        return "task_list";
     }
 
     public boolean isHasNextPage() {
@@ -105,14 +105,14 @@ public class RoleController implements Serializable {
         startId = endId + 1;
         endId = endId + pageSize;
         recreateModel();
-        return "index";
+        return "task_list";
     }
 
     public String previous() {
         startId = startId - pageSize;
         endId = endId - pageSize;
         recreateModel();
-        return "index";
+        return "task_list";
     }
 
     public int getPageSize() {
@@ -120,17 +120,17 @@ public class RoleController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Role) getRoles().getRowData();
-        return "browse_role";
+        current = (Task) getTasks().getRowData();
+        return "browse_task";
     }
 
     public String prepareList() {
         recreateModel();
-        return "role_list";
+        return "task_list";
     }
-    
+
     public String addNew() {
-        return "new_role";
+        return "new_task";
     }
 
     public String goToEmployees() {

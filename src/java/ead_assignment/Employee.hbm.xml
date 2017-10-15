@@ -1,18 +1,17 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Oct 14, 2017 3:53:02 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="ead_assignment.Employee" table="EMPLOYEE" schema="ROOT" optimistic-lock="version">
-        <id name="employeeid" type="int">
-            <column name="EMPLOYEEID" />
-            <generator class="assigned" />
-        </id>
-        <property name="name" type="string">
-            <column name="NAME" length="100" />
-        </property>
-        <property name="role" type="int">
-            <column name="ROLE" not-null="true" />
-        </property>
-    </class>
+  <class name="Models.Employee" optimistic-lock="version" schema="ROOT" table="EMPLOYEE">
+    <id name="employeeid" type="int">
+      <column name="EMPLOYEEID"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="name" type="string">
+      <column length="100" name="NAME"/>
+    </property>
+    <property name="role" type="int">
+      <column name="ROLE" not-null="true"/>
+    </property>
+  </class>
 </hibernate-mapping>

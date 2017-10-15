@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ead_assignment;
+package Helpers;
 
+import Models.Employee;
+import ead_assignment.HibernateUtil;
+import Models.Role;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;

@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ead_assignment;
+package Helpers;
 
+import ead_assignment.HibernateUtil;
+import Models.Role;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -13,33 +15,33 @@ import org.hibernate.Session;
  *
  * @author Nutt
  */
-public class TaskHelper {
+public class RoleHelper {
 
     Session session = null;
 
-    public TaskHelper() {
+    public RoleHelper() {
         this.session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
-    public List getTasks(int startID, int endID) {
-        List<Task> taskList = null;
+    public List getRoles(int startID, int endID) {
+        List<Role> roleList = null;
         try {
             org.hibernate.Transaction tx = session.beginTransaction();
-            Query q = session.createQuery("select from Task where taskid between " + startID + " and " + endID);
-            taskList = (List<Task>) q.list();
+            Query q = session.createQuery ("select from Role where roleid between "+ startID +" and "+ endID);
+        roleList = (List<Role>) q.list();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return taskList;
+        return roleList;
     }
-
-    public Task createTask(String desc) {
-        Task task = null;
+    
+    public Role createRole(String title) {
+        Role role = null;
         try {
             org.hibernate.Transaction tx = session.beginTransaction();
-            task = new Task();
-            task.setDescription(desc);
-            Query cq = session.createSQLQuery("insert into Task values (default, '" + task.getDescription()+ "', null)");
+            role = new Role();
+            role.setTitle(title);
+            Query cq = session.createSQLQuery("insert into Role values (default, '" + role.getTitle()+ "')");
             cq.executeUpdate();
 
             //session.save(employee);
@@ -48,6 +50,6 @@ public class TaskHelper {
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
-        return task;
+        return role;
     }
 }
