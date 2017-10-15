@@ -32,6 +32,7 @@ public class RoleController implements Serializable {
 
     private Role current;
     private int selectedItemIndex;
+    private String newTitle;
 
     /**
      * Creates a new instance of RoleController
@@ -47,6 +48,24 @@ public class RoleController implements Serializable {
         this.startId = startId;
         this.endId = endId;
     }
+    
+    public String getNewTitle() {
+        return newTitle;
+    }
+    
+    public void setNewTitle(String newTitle) {
+        this.newTitle = newTitle;
+    }
+    
+    public String saveRole() {
+        System.out.println("description: " + this.newTitle);
+
+        helper = new RoleHelper();
+        current = helper.createRole(this.newTitle);
+        recreateModel();
+        getRoles();
+        return "role_list";
+    }
 
     public Role getSelected() {
         if (current == null) {
@@ -57,6 +76,7 @@ public class RoleController implements Serializable {
     }
     
     public DataModel getRoles() {
+        helper = new RoleHelper();
         if (roleTitles == null) {
             roleTitles = new ListDataModel(helper.getRoles(startId, endId));
         }
@@ -106,7 +126,11 @@ public class RoleController implements Serializable {
 
     public String prepareList() {
         recreateModel();
-        return "index";
+        return "role_list";
+    }
+    
+    public String addNew() {
+        return "new_role";
     }
 
     public String goToEmployees() {

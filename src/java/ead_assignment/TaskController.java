@@ -30,6 +30,7 @@ public class TaskController implements Serializable {
 
     private Task current;
     private int selectedItemIndex;
+    private String newDescription;
 
     /**
      * Creates a new instance of TaskController
@@ -55,6 +56,7 @@ public class TaskController implements Serializable {
     }
 
     public DataModel getTasks() {
+        helper = new TaskHelper();
         if (tasks == null) {
             tasks = new ListDataModel(helper.getTasks(startId, endId));
         }
@@ -62,7 +64,25 @@ public class TaskController implements Serializable {
     }
 
     void recreateModel() {
-//        tasks = null;
+        tasks = null;
+    }
+    
+    public String getNewDescription() {
+        return newDescription;
+    }
+    
+    public void setNewDescription(String newDescription) {
+        this.newDescription = newDescription;
+    }
+
+    public String saveTask() {
+        System.out.println("description: " + this.newDescription);
+
+        helper = new TaskHelper();
+        current = helper.createTask(this.newDescription);
+        recreateModel();
+        getTasks();
+        return "task_list";
     }
 
     public boolean isHasNextPage() {
@@ -105,6 +125,10 @@ public class TaskController implements Serializable {
     public String prepareList() {
         recreateModel();
         return "task_list";
+    }
+
+    public String addNew() {
+        return "new_task";
     }
 
     public String goToEmployees() {

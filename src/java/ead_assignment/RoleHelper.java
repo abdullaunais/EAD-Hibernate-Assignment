@@ -32,4 +32,22 @@ public class RoleHelper {
         }
         return roleList;
     }
+    
+    public Role createRole(String title) {
+        Role role = null;
+        try {
+            org.hibernate.Transaction tx = session.beginTransaction();
+            role = new Role();
+            role.setTitle(title);
+            Query cq = session.createSQLQuery("insert into Role values (default, '" + role.getTitle()+ "')");
+            cq.executeUpdate();
+
+            //session.save(employee);
+            tx.commit();
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+        return role;
+    }
 }
