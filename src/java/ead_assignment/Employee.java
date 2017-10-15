@@ -1,6 +1,11 @@
 package ead_assignment;
 // Generated Oct 14, 2017 3:53:01 PM by Hibernate Tools 4.3.1
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+
 
 
 /**
@@ -9,9 +14,12 @@ package ead_assignment;
 public class Employee  implements java.io.Serializable {
 
 
-     private int employeeid;
-     private String name;
-     private int role;
+    @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    private int employeeid;
+    
+    private String name;
+    private int role;
 
     public Employee() {
     }

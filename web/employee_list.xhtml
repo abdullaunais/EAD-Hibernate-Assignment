@@ -19,6 +19,9 @@
                                 <h:commandLink action="#{employeeController.goToEmployees}" value="Employees" />
                             </li>
                             <li class="nav-item" style="margin:0 20px;">
+                                <h:commandLink action="#{employeeController.goToTasks}" value="Tasks" /> 
+                            </li>
+                            <li class="nav-item" style="margin:0 20px;">
                                 <h:commandLink action="#{employeeController.goToRoles}" value="Roles" /> 
                             </li>
                         </ul>
@@ -52,6 +55,7 @@
                     </h:column>
                 </h:dataTable>
                 <br/>
+                                <h:commandLink class="btn btn-secondary" action="#{employeeController.addNew}" value="Add Employee"/>
             </h:form>
         </ui:define>
     </ui:composition>

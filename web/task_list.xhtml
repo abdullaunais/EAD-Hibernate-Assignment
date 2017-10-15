@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="./template.xhtml">
-<ui:define name="top">
+        <ui:define name="top">
             <h:form>
                 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,13 +16,13 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active" style="margin:0 20px;">
-                                <h:commandLink action="#{roleController.goToEmployees}" value="Employees" />
+                                <h:commandLink action="#{taskController.goToEmployees}" value="Employees" />
                             </li>
                             <li class="nav-item" style="margin:0 20px;">
-                                <h:commandLink action="#{roleController.goToTasks}" value="Tasks" /> 
+                                <h:commandLink action="#{taskController.goToTasks}" value="Tasks" /> 
                             </li>
                             <li class="nav-item" style="margin:0 20px;">
-                                <h:commandLink action="#{roleController.goToRoles}" value="Roles" /> 
+                                <h:commandLink action="#{taskController.goToRoles}" value="Roles" /> 
                             </li>
                         </ul>
                     </div>
@@ -31,27 +31,27 @@
         </ui:define>
         <ui:define name="body">
             <h:form>
-                <h:commandLink action="#{roleController.previous}" value="Previous #{roleController.pageSize}" rendered="#{roleController.hasPreviousPage}"/> 
-                <h:commandLink action="#{roleController.next}" value="Next #{roleController.pageSize}" rendered="#{roleController.hasNextPage}"/>
+                <h:commandLink action="#{taskController.previous}" value="Previous #{taskController.pageSize}" rendered="#{taskController.hasPreviousPage}"/> 
+                <h:commandLink action="#{taskController.next}" value="Next #{taskController.pageSize}" rendered="#{taskController.hasNextPage}"/>
 
-                <h:dataTable value="#{roleController.roles}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                <h:dataTable value="#{taskController.tasks}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="ID"/>
                         </f:facet>
-                        <h:outputText value="#{item.roleid}"/>
+                        <h:outputText value="#{item.taskid}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Title"/>
                         </f:facet>
-                        <h:outputText value="#{item.title}"/>
+                        <h:outputText value="#{item.description}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value=" "/>
                         </f:facet>
-                        <h:commandLink action="#{roleController.prepareView}" value="View"/>
+                        <h:commandLink action="#{taskController.prepareView}" value="View"/>
                     </h:column>
                 </h:dataTable>
                 <br/>

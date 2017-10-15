@@ -6,20 +6,41 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
         <ui:define name="top">
-            top
+            <h:form>
+                <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">EAD</a>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active" style="margin:0 20px;">
+                                <h:commandLink action="#{employeeController.goToEmployees}" value="Employees" />
+                            </li>
+                            <li class="nav-item" style="margin:0 20px;">
+                                <h:commandLink action="#{employeeController.goToTasks}" value="Tasks" /> 
+                            </li>
+                            <li class="nav-item" style="margin:0 20px;">
+                                <h:commandLink action="#{employeeController.goToRoles}" value="Roles" /> 
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </h:form>
         </ui:define>
 
         <ui:define name="body">
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="ID:"/>
+                    <h:outputText value="ID: "/>
                     <h:outputText value="#{employeeController.selected.employeeid}" title="ID"/>
-                    <h:outputText value="Name"/>
+                    <h:outputText value="Name: "/>
                     <h:outputText value="#{employeeController.selected.name}" title="Name"/>
                 </h:panelGrid>
                 <br/>
                 <br/>
-                <h:commandLink action="#{employeeController.prepareList}" value="View All Employees"/>
+                <h:commandLink class="btn btn-primary" action="#{employeeController.prepareList}" value="View All Employees"/>
                 <br/>
             </h:form>
 

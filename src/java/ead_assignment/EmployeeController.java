@@ -8,6 +8,8 @@ package ead_assignment;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -24,18 +26,26 @@ public class EmployeeController implements Serializable {
     int startId;
     int endId;
     DataModel employees;
+
     EmployeeHelper helper;
+    RoleHelper rHelper;
     private int recordCount = 1000;
     private int pageSize = 10;
 
     private Employee current;
     private int selectedItemIndex;
+
+    private String newName;
+    private List<String> allRoles;
+    List<Role> roleList;
+    private String selectedRole;
+    Role roleListSelected;
     
     /**
      * Creates a new instance of EmployeeController
      */
     public EmployeeController() {
-    helper = new EmployeeHelper();
+        helper = new EmployeeHelper();
         startId = 1;
         endId = 50;
     }
@@ -44,6 +54,42 @@ public class EmployeeController implements Serializable {
         helper = new EmployeeHelper();
         this.startId = startId;
         this.endId = endId;
+    }
+    
+    public String getNewName() {
+        return newName;
+    }
+    
+    public void setNewName(String newName) {
+        this.newName = newName;
+    }
+    
+    public List getAllRoles() {
+        return allRoles;
+    }
+    
+    public String getSelectedRole() {
+        return selectedRole;
+    }
+    
+    public void setSelectedRole(String selectedRole) {
+        this.selectedRole = selectedRole;
+    }
+    
+    public String saveCustomer() {
+        System.out.println("name: " + this.newName);
+        System.out.println("role:" + this.selectedRole);
+        roleList.forEach((Role obj) -> {
+            if(obj.getTitle().equals(this.selectedRole)) {
+                this.roleListSelected = obj;
+            }
+        });
+        
+        helper = new EmployeeHelper();
+        current = helper.createEmployee(this.newName, roleListSelected.getRoleid());
+        recreateModel();
+        getEmployees();
+        return "employee_list";
     }
 
     public Employee getSelected() {
@@ -54,18 +100,33 @@ public class EmployeeController implements Serializable {
         return current;
     }
 
-
     public DataModel getEmployees() {
+        helper = new EmployeeHelper();
         if (employees == null) {
             employees = new ListDataModel(helper.getEmployees(startId, endId));
         }
         return employees;
     }
+    
+    public void getRoleList() {
+        rHelper = new RoleHelper();
+        roleList = rHelper.getRoles(0, 100);
+        allRoles = new ArrayList<>();
+        roleList.forEach((Role elem) -> {
+            allRoles.add(elem.getTitle());
+        });
+        System.out.println("Roles Recieved");
+    }
 
     void recreateModel() {
         employees = null;
     }
-    
+
+//    public void submit() {
+//        result = "Submitted values: " + newName + ", " + newRole;
+//        System.out.println(result);
+//    }
+
     public boolean isHasNextPage() {
         if (endId + pageSize <= recordCount) {
             return true;
@@ -74,14 +135,14 @@ public class EmployeeController implements Serializable {
     }
 
     public boolean isHasPreviousPage() {
-        if (startId-pageSize > 0) {
+        if (startId - pageSize > 0) {
             return true;
         }
         return false;
     }
 
     public String next() {
-        startId = endId+1;
+        startId = endId + 1;
         endId = endId + pageSize;
         recreateModel();
         return "employee_list";
@@ -98,21 +159,32 @@ public class EmployeeController implements Serializable {
         return pageSize;
     }
 
-    public String prepareView(){
+    public String prepareView() {
         current = (Employee) getEmployees().getRowData();
         return "browse_employee";
     }
-    
-    public String prepareList(){
+
+    public String prepareList() {
         recreateModel();
+        getEmployees();
         return "employee_list";
     }
-    
+
+    public String addNew() {
+        getRoleList();
+        return "new_employee";
+    }
+
     public String goToEmployees() {
+        getEmployees();
         return "employee_list";
     }
-    
+
     public String goToRoles() {
         return "role_list";
+    }
+
+    public String goToTasks() {
+        return "task_list";
     }
 }

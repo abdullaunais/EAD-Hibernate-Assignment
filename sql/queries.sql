@@ -49,4 +49,11 @@ insert into employee values (default, 'David', 3);
 insert into employee values (default, 'John', 4);
 insert into employee values (default, 'Larry', 5);
 
+insert into task values (default, 'Delpoy App', null);
+insert into task values (default, 'Compile Latest Build', null);
+insert into task values (default, 'Assign Tasks', null);
+insert into task values (default, 'Backup Database', null);
+insert into task values (default, 'Contact with Client for Feedback', null);
+insert into task values (default, 'Design Website', null);
+
 

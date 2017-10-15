@@ -20,11 +20,11 @@ public class TaskHelper {
         this.session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
-    public List getTasks() {
+    public List getTasks(int startID, int endID) {
         List<Task> taskList = null;
         try {
             org.hibernate.Transaction tx = session.beginTransaction();
-            Query q = session.createQuery("from task as task");
+            Query q = session.createQuery("select from Task where taskid between "+ startID +" and "+ endID);
             taskList = (List<Task>) q.list();
         } catch (Exception e) {
             e.printStackTrace();

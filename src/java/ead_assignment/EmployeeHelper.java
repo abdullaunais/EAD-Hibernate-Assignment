@@ -22,33 +22,41 @@ public class EmployeeHelper {
 
     public List getEmployees(int startId, int endId) {
         List<Employee> empList = null;
+        org.hibernate.Transaction tx;
         try {
-            org.hibernate.Transaction tx = session.beginTransaction();
+            tx = session.beginTransaction();
             Query q = session.createQuery("select from Employee where employeeid between "+ startId +" and "+ endId);
             empList = (List<Employee>) q.list();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            //session.close();
         }
         return empList;
     }
     
-    public void createEmployee(String name,int roleId){
+    public Employee createEmployee(String name,int roleId){
+        Employee employee = null;
         try{
             org.hibernate.Transaction tx = session.beginTransaction();
-            Employee employee = new Employee();
+            employee = new Employee();
             employee.setName(name);
+            employee.setEmployeeid(roleId);
             if(roleId != -1){
                 Role role = (Role) session.createQuery(
-                                "select r from Role as r where r.roleID = :rid"
+                                "select r from Role as r where r.roleid = :rid"
                             ).setParameter("rid", roleId).uniqueResult();
                 employee.setRole(roleId);
+                Query cq = session.createSQLQuery("insert into Employee values (default, '"+employee.getName()+"', "+employee.getRole()+")");
+                cq.executeUpdate();
             }
-            session.save(employee);
+            //session.save(employee);
             tx.commit();
             
         }catch(RuntimeException e){
             e.printStackTrace();
         }
+        return employee;
     }
     
     public void updateEmployee(String name,int empID){
