@@ -5,33 +5,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:define name="top">
-        <h:form>
-            <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand" href="#">EAD</a>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active" style="margin:0 20px;">
-                            <h:commandLink action="#{employeeController.goToEmployees}" value="Employees" />
-                        </li>
-                        <li class="nav-item" style="margin:0 20px;">
-                            <h:commandLink action="#{employeeController.goToTasks}" value="Tasks" /> 
-                        </li>
-                        <li class="nav-item" style="margin:0 20px;">
-                            <h:commandLink action="#{employeeController.goToRoles}" value="Roles" /> 
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </h:form>
-    </ui:define>
 
     <ui:define name="body">
-
         <h:form>
             <h:panelGrid id="panel1" columns="2" border="1"
                          cellpadding="5" cellspacing="1">
@@ -42,12 +17,12 @@
                 <h:inputText value="#{employeeController.newName}" id="fn"/>
                 <h:outputLabel value="Role :"/>
                 <h:selectOneMenu value="#{employeeController.selectedRole}" id="ulist">
-                        <f:selectItems value="#{employeeController.allRoles}"/>
-                    </h:selectOneMenu>
+                    <f:selectItems value="#{employeeController.allRoles}"/>
+                </h:selectOneMenu>
                 <f:facet name="footer">
                     <h:commandButton value="Save" action="#{employeeController.saveCustomer}">
-                    <f:ajax render="fn ln eml s msg" execute="@form"/>
-                        </h:commandButton>
+                        <f:ajax render="fn ln eml s msg" execute="@form"/>
+                    </h:commandButton>
                 </f:facet>
             </h:panelGrid>      
         </h:form>

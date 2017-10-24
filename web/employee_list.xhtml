@@ -5,32 +5,12 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="./template.xhtml">
-        <ui:define name="top">
-            <h:form>
-                <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">EAD</a>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active" style="margin:0 20px;">
-                                <h:commandLink action="#{employeeController.goToEmployees}" value="Employees" />
-                            </li>
-                            <li class="nav-item" style="margin:0 20px;">
-                                <h:commandLink action="#{employeeController.goToTasks}" value="Tasks" /> 
-                            </li>
-                            <li class="nav-item" style="margin:0 20px;">
-                                <h:commandLink action="#{employeeController.goToRoles}" value="Roles" /> 
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </h:form>
-        </ui:define>
+        
         <ui:define name="body">
             <h:form>
+                 <h:commandLink class="btn btn-success" action="#{employeeController.addNew}" value="Add Employee"/>
+                 <br/>
+                
                 <h:commandLink action="#{employeeController.previous}" value="Previous #{employeeController.pageSize}" rendered="#{employeeController.hasPreviousPage}"/> 
                 <h:commandLink action="#{employeeController.next}" value="Next #{employeeController.pageSize}" rendered="#{employeeController.hasNextPage}"/>
 
@@ -49,13 +29,15 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value=" "/>
+                            <h:outputText value="Actions"/>
                         </f:facet>
-                        <h:commandLink action="#{employeeController.prepareView}" value="View"/>
+                        <h:commandLink class="btn btn-primary" style="margin: 4px 0;" action="#{employeeController.prepareView}">
+                            <i class="fa fa-eye"></i>
+                        </h:commandLink>
                     </h:column>
                 </h:dataTable>
                 <br/>
-                                <h:commandLink class="btn btn-success" action="#{employeeController.addNew}" value="Add Employee"/>
+                               
             </h:form>
         </ui:define>
     </ui:composition>

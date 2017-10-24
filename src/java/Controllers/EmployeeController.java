@@ -44,7 +44,9 @@ public class EmployeeController implements Serializable {
     List<Role> roleList;
     private String selectedRole;
     Role roleListSelected;
-    
+
+    private String updateName;
+
     /**
      * Creates a new instance of EmployeeController
      */
@@ -59,36 +61,44 @@ public class EmployeeController implements Serializable {
         this.startId = startId;
         this.endId = endId;
     }
-    
+
     public String getNewName() {
         return newName;
     }
-    
+
     public void setNewName(String newName) {
         this.newName = newName;
     }
-    
+
+    public String getUpdateName() {
+        return updateName;
+    }
+
+    public void setUpdateName(String updateName) {
+        this.updateName = updateName;
+    }
+
     public List getAllRoles() {
         return allRoles;
     }
-    
+
     public String getSelectedRole() {
         return selectedRole;
     }
-    
+
     public void setSelectedRole(String selectedRole) {
         this.selectedRole = selectedRole;
     }
-    
+
     public String saveCustomer() {
         System.out.println("name: " + this.newName);
         System.out.println("role:" + this.selectedRole);
         roleList.forEach((Role obj) -> {
-            if(obj.getTitle().equals(this.selectedRole)) {
+            if (obj.getTitle().equals(this.selectedRole)) {
                 this.roleListSelected = obj;
             }
         });
-        
+
         helper = new EmployeeHelper();
         current = helper.createEmployee(this.newName, roleListSelected.getRoleid());
         recreateModel();
@@ -111,7 +121,7 @@ public class EmployeeController implements Serializable {
         }
         return employees;
     }
-    
+
     public void getRoleList() {
         rHelper = new RoleHelper();
         roleList = rHelper.getRoles(0, 100);
@@ -130,7 +140,6 @@ public class EmployeeController implements Serializable {
 //        result = "Submitted values: " + newName + ", " + newRole;
 //        System.out.println(result);
 //    }
-
     public boolean isHasNextPage() {
         if (endId + pageSize <= recordCount) {
             return true;
