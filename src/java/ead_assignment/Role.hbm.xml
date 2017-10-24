@@ -5,7 +5,7 @@
   <class name="Models.Role" optimistic-lock="version" schema="ROOT" table="ROLE">
     <id name="roleid" type="int">
       <column name="ROLEID"/>
-      <generator class="assigned"/>
+      <generator class="increment"/>
     </id>
     <property name="title" type="string">
       <column length="50" name="TITLE"/>

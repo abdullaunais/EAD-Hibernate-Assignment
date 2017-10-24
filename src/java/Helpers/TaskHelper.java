@@ -10,19 +10,13 @@ import Models.Task;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author Nutt
  */
 public class TaskHelper {
-
-    Session session = null;
-
-    public TaskHelper() {
-        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
-    }
-
     /**
      * Get All Tasks
      *
@@ -32,10 +26,13 @@ public class TaskHelper {
      */
     public List getTasks(int startID, int endID) {
         List<Task> taskList = null;
+        Transaction tx = null;
+        Session session = HibernateUtil.getCurrentSession();
         try {
-            org.hibernate.Transaction tx = session.beginTransaction();
-            Query q = session.createQuery("select from Task where taskid between " + startID + " and " + endID);
+            tx = session.beginTransaction();
+            Query q = session.createQuery("select t from Task as t where taskid between " + startID + " and " + endID);
             taskList = (List<Task>) q.list();
+            tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,17 +46,16 @@ public class TaskHelper {
      * @return task object
      */
     public Task createTask(String desc) {
+        Transaction tx = null;
+        Session session = HibernateUtil.getCurrentSession();
         Task task = null;
         try {
-            org.hibernate.Transaction tx = session.beginTransaction();
+            tx = session.beginTransaction();
             task = new Task();
             task.setDescription(desc);
-            Query cq = session.createSQLQuery("insert into Task values (default, '" + task.getDescription() + "', null)");
-            cq.executeUpdate();
 
-            //session.save(employee);
+            session.save(task);
             tx.commit();
-
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
@@ -72,8 +68,10 @@ public class TaskHelper {
      * @param taskID 
      */
     public void updateTask(String description, int taskID) {
+        Transaction tx = null;
+        Session session = HibernateUtil.getCurrentSession();
         try {
-            org.hibernate.Transaction tx = session.beginTransaction();
+            tx = session.beginTransaction();
             Task dbRole = (Task) session.createQuery(
                     "select t from Task as t where t.taskid = :eid"
             ).setParameter("eid", taskID).uniqueResult();

@@ -5,7 +5,7 @@
   <class name="Models.Task" optimistic-lock="version" schema="ROOT" table="TASK">
     <id name="taskid" type="int">
       <column name="TASKID"/>
-      <generator class="assigned"/>
+      <generator class="increment"/>
     </id>
     <property name="description" type="string">
       <column length="100" name="DESCRIPTION"/>

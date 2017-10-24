@@ -34,7 +34,7 @@ public class EmployeeController implements Serializable {
     EmployeeHelper helper;
     RoleHelper rHelper;
     private int recordCount = 1000;
-    private int pageSize = 10;
+    private int pageSize = 50;
 
     private Employee current;
     private int selectedItemIndex;

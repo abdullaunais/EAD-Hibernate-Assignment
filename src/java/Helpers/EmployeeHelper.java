@@ -11,31 +11,30 @@ import Models.Role;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author Nutt
  */
 public class EmployeeHelper {
-        Session session = null;
-
-    public EmployeeHelper() {
-        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
-    }
 
     /**
      * Get all employees
+     *
      * @param startId
      * @param endId
      * @return employee list as java.util.List
      */
     public List getEmployees(int startId, int endId) {
         List<Employee> empList = null;
-        org.hibernate.Transaction tx;
+        Transaction tx = null;
+        Session session = HibernateUtil.getCurrentSession();
         try {
             tx = session.beginTransaction();
-            Query q = session.createQuery("select from Employee where employeeid between "+ startId +" and "+ endId);
+            Query q = session.createQuery("select e from Employee as e where employeeid between " + startId + " and " + endId);
             empList = (List<Employee>) q.list();
+            tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -43,55 +42,57 @@ public class EmployeeHelper {
         }
         return empList;
     }
-    
+
     /**
      * Add New Employee Method
+     *
      * @param name
      * @param roleId
      * @return employee object
      */
-    public Employee createEmployee(String name,int roleId){
+    public Employee createEmployee(String name, int roleId) {
         Employee employee = null;
-        try{
-            org.hibernate.Transaction tx = session.beginTransaction();
+        Transaction tx = null;
+        Session session = HibernateUtil.getCurrentSession();
+        try {
+            tx = session.beginTransaction();
             employee = new Employee();
             employee.setName(name);
-            employee.setEmployeeid(roleId);
-            if(roleId != -1){
+            if (roleId != -1) {
                 Role role = (Role) session.createQuery(
-                                "select r from Role as r where r.roleid = :rid"
-                            ).setParameter("rid", roleId).uniqueResult();
+                        "select r from Role as r where r.roleid = :rid"
+                ).setParameter("rid", roleId).uniqueResult();
                 employee.setRole(roleId);
-                Query cq = session.createSQLQuery("insert into Employee values (default, '"+employee.getName()+"', "+employee.getRole()+")");
-                cq.executeUpdate();
             }
-            //session.save(employee);
+            session.save(employee);
             tx.commit();
-            
-        }catch(RuntimeException e){
+        } catch (RuntimeException e) {
             e.printStackTrace();
         }
         return employee;
     }
-    
+
     /**
      * Update Employee Details
+     *
      * @param name
-     * @param empID 
+     * @param empID
      */
-    public void updateEmployee(String name,int empID){
-        try{
-            org.hibernate.Transaction tx = session.beginTransaction();
-            Employee dbEmp =(Employee) session.createQuery(
+    public void updateEmployee(String name, int empID) {
+        Transaction tx = null;
+        Session session = HibernateUtil.getCurrentSession();
+        try {
+            tx = session.beginTransaction();
+            Employee dbEmp = (Employee) session.createQuery(
                     "select e from Employee as e where e.employeeID = :eid"
             ).setParameter("eid", empID).uniqueResult();
-            
+
             dbEmp.setName(name);
             session.update(dbEmp);
             tx.commit();
-            
-        }catch(RuntimeException e){
+        } catch (RuntimeException e) {
             e.printStackTrace();
+            
         }
     }
 }

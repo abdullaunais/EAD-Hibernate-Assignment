@@ -3,23 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/ead_assignment/Role.java</file>
-            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/ead_assignment/RoleController.java</file>
             <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/web/task_list.xhtml</file>
+            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/Models/Employee.java</file>
             <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/web/new_employee.xhtml</file>
-            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/ead_assignment/TaskHelper.java</file>
             <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/web/role_list.xhtml</file>
-            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/ead_assignment/Employee.java</file>
+            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/Helpers/EmployeeHelper.java</file>
             <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/sql/queries.sql</file>
             <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/web/browse_role.xhtml</file>
-            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/ead_assignment/TaskController.java</file>
-            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/ead_assignment/EmployeeController.java</file>
-            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/ead_assignment/Task.java</file>
+            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/Helpers/TaskHelper.java</file>
+            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/Helpers/RoleHelper.java</file>
             <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/web/template.xhtml</file>
+            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/ead_assignment/HibernateUtil.java</file>
+            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/Models/Role.java</file>
             <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/web/employee_list.xhtml</file>
             <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/web/browse_employee.xhtml</file>
-            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/ead_assignment/RoleHelper.java</file>
-            <file>file:/C:/Users/Nutt/Documents/NetBeansProjects/ead_assignment/src/java/ead_assignment/EmployeeHelper.java</file>
         </group>
     </open-files>
 </project-private>

@@ -5,6 +5,7 @@
  */
 package ead_assignment;
 
+import org.hibernate.Session;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
 
@@ -15,22 +16,31 @@ import org.hibernate.SessionFactory;
  * @author Nutt
  */
 public class HibernateUtil {
-
-    private static final SessionFactory sessionFactory;
+     private static final SessionFactory sessionFactory;
     
     static {
         try {
-            // Create the SessionFactory from standard (hibernate.cfg.xml) 
-            // config file.
-            sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-        } catch (Throwable ex) {
-            // Log the exception. 
-            System.err.println("Initial SessionFactory creation failed." + ex);
+            sessionFactory = new AnnotationConfiguration().configure()
+                    .buildSessionFactory();
+        }catch (Throwable ex){
+            System.err.println("Initial SessionFactory creation failed."+ ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
     
-    public static SessionFactory getSessionFactory() {
+    public static SessionFactory getSessionfactory(){
         return sessionFactory;
+    }
+    
+    public static Session openSession(){
+        return sessionFactory.openSession();
+    }
+    public static Session getCurrentSession(){
+        return sessionFactory.getCurrentSession();
+    }
+    public static void close(){
+        if(sessionFactory != null){
+            sessionFactory.close();
+        }
     }
 }
