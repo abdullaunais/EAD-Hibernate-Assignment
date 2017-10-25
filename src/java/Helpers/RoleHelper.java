@@ -8,6 +8,7 @@ package Helpers;
 import ead_assignment.HibernateUtil;
 import Models.Role;
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -17,6 +18,7 @@ import org.hibernate.Transaction;
  * @author Nutt
  */
 public class RoleHelper {
+
     /**
      * Get all roles
      *
@@ -41,6 +43,7 @@ public class RoleHelper {
 
     /**
      * Add new role
+     *
      * @param title
      * @return
      */
@@ -62,8 +65,9 @@ public class RoleHelper {
 
     /**
      * Update a Role
+     *
      * @param title
-     * @param roleID 
+     * @param roleID
      */
     public void updateRole(String title, int roleID) {
         Transaction tx = null;
@@ -81,5 +85,22 @@ public class RoleHelper {
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
+    }
+
+    public Role getRoleById(int roleId) {
+        Transaction tx = null;
+        Session session = HibernateUtil.getCurrentSession();
+        Role role = null;
+        try {   
+            tx = session.beginTransaction();
+            role = (Role) session.createQuery(
+                    "select r from Role as r where r.roleid = :rid"
+            ).setParameter("rid", roleId).uniqueResult();
+            tx.commit();
+            return role;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+        return role;
     }
 }

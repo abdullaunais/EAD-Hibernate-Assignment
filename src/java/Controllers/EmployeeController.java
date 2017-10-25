@@ -37,6 +37,7 @@ public class EmployeeController implements Serializable {
     private int pageSize = 50;
 
     private Employee current;
+    private Role currentRole;
     private int selectedItemIndex;
 
     private String newName;
@@ -114,6 +115,10 @@ public class EmployeeController implements Serializable {
         return current;
     }
 
+    public Role getCurrentRole() {
+        return currentRole;
+    }
+
     public DataModel getEmployees() {
         helper = new EmployeeHelper();
         if (employees == null) {
@@ -141,6 +146,11 @@ public class EmployeeController implements Serializable {
 //        System.out.println(result);
 //    }
     public boolean isHasNextPage() {
+        if (employees != null) {
+            recordCount = employees.getRowCount();
+        } else {
+            return false;
+        }
         if (endId + pageSize <= recordCount) {
             return true;
         }
@@ -174,6 +184,8 @@ public class EmployeeController implements Serializable {
 
     public String prepareView() {
         current = (Employee) getEmployees().getRowData();
+        rHelper = new RoleHelper();
+        currentRole = rHelper.getRoleById(current.getRole());
         return "browse_employee";
     }
 

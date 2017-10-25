@@ -42,7 +42,7 @@ public class RoleController implements Serializable {
     public RoleController() {
         helper = new RoleHelper();
         startId = 1;
-        endId = 50;
+        endId = 10;
     }
 
     public RoleController(int startId, int endId) {
@@ -50,15 +50,15 @@ public class RoleController implements Serializable {
         this.startId = startId;
         this.endId = endId;
     }
-    
+
     public String getNewTitle() {
         return newTitle;
     }
-    
+
     public void setNewTitle(String newTitle) {
         this.newTitle = newTitle;
     }
-    
+
     public String saveRole() {
         System.out.println("description: " + this.newTitle);
 
@@ -76,7 +76,7 @@ public class RoleController implements Serializable {
         }
         return current;
     }
-    
+
     public DataModel getRoles() {
         helper = new RoleHelper();
         if (roleTitles == null) {
@@ -90,6 +90,11 @@ public class RoleController implements Serializable {
     }
 
     public boolean isHasNextPage() {
+        if (roleTitles != null) {
+            recordCount = roleTitles.getRowCount();
+        } else {
+            return false;
+        }
         if (endId + pageSize <= recordCount) {
             return true;
         }
@@ -130,7 +135,7 @@ public class RoleController implements Serializable {
         recreateModel();
         return "role_list";
     }
-    
+
     public String addNew() {
         return "new_role";
     }

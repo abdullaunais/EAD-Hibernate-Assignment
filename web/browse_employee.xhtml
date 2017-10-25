@@ -14,9 +14,12 @@
                     <h6>
                         Employee #<h:outputText value="#{employeeController.selected.employeeid}" title="ID"/>
                     </h6>
-                    <h6 class="card-title">
+                    <h6 class="card-title" style="margin-bottom:0; margin-top: 0.75rem;">
                         <h:outputText value="#{employeeController.selected.name}" title="Name"/>
                     </h6>
+                    <p>
+                        <h:outputText value="#{employeeController.currentRole.title}" title="Role"/>
+                    </p>
                 </div>
             </div>
             <div class="card" style="width: 20rem; padding: 20px 30px;">

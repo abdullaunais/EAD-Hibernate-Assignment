@@ -7,15 +7,21 @@
 
     <ui:define name="body">
         <h:form>
-            <h:panelGrid columns="2">
-                <h:outputText value="Description : "/>
-                <h:outputText value="#{taskController.selected.description}" title="Title"/>
-            </h:panelGrid>
+            <div class="card" style="width: 20rem; padding-bottom: 20px;">
+                <img class="card-img-top" style="width: 20rem; padding: 20px;" src="resources/img/task.png"/>
+                <div class="card-body">
+                    <h6>
+                        Task #<h:outputText value="#{taskController.selected.taskid}" title="ID"/>
+                    </h6>
+                    <h6 class="card-title" style="margin-bottom:0; margin-top: 0.75rem;">
+                        <h:outputText value="#{taskController.selected.description}" title="Title"/>
+                    </h6>
+                </div>
+            </div>
             <br/>
             <br/>
             <h:commandLink class="btn btn-primary" action="#{taskController.prepareList}" value="View All Tasks"/>
             <br/>
         </h:form>
-
     </ui:define>
 </ui:composition>

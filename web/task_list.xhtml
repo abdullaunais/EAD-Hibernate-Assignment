@@ -8,6 +8,12 @@
 
         <ui:define name="body">
             <h:form>
+                <h:commandLink class="btn btn-success" action="#{taskController.addNew}">
+                    <i class="fa fa-tasks"></i> &nbsp;Add Task
+                </h:commandLink>
+                <br/>
+                <br/>
+
                 <h:commandLink action="#{taskController.previous}" value="Previous #{taskController.pageSize}" rendered="#{taskController.hasPreviousPage}"/> 
                 <h:commandLink action="#{taskController.next}" value="Next #{taskController.pageSize}" rendered="#{taskController.hasNextPage}"/>
 
@@ -26,13 +32,14 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value=" "/>
+                            <h:outputText value="Actions"/>
                         </f:facet>
-                        <h:commandLink action="#{taskController.prepareView}" value="View"/>
+                        <h:commandLink class="btn btn-primary" style="margin: 4px 0;" action="#{taskController.prepareView}">
+                            <i class="fa fa-chevron-circle-right"></i>
+                        </h:commandLink>
                     </h:column>
                 </h:dataTable>
                 <br/>
-                <h:commandLink class="btn btn-success" action="#{taskController.addNew}" value="Add Task"/>
             </h:form>
         </ui:define>
     </ui:composition>

@@ -5,12 +5,14 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="./template.xhtml">
-        
+
         <ui:define name="body">
             <h:form>
-                 <h:commandLink class="btn btn-success" action="#{employeeController.addNew}" value="Add Employee"/>
-                 <br/>
-                
+                <h:commandLink class="btn btn-success" action="#{employeeController.addNew}">
+                    <i class="fa fa-address-book"></i> &nbsp;Add Employee
+                </h:commandLink>
+                <br/>
+                <br/>
                 <h:commandLink action="#{employeeController.previous}" value="Previous #{employeeController.pageSize}" rendered="#{employeeController.hasPreviousPage}"/> 
                 <h:commandLink action="#{employeeController.next}" value="Next #{employeeController.pageSize}" rendered="#{employeeController.hasNextPage}"/>
 
@@ -32,12 +34,12 @@
                             <h:outputText value="Actions"/>
                         </f:facet>
                         <h:commandLink class="btn btn-primary" style="margin: 4px 0;" action="#{employeeController.prepareView}">
-                            <i class="fa fa-eye"></i>
+                            <i class="fa fa-chevron-circle-right"></i>
                         </h:commandLink>
                     </h:column>
                 </h:dataTable>
                 <br/>
-                               
+
             </h:form>
         </ui:define>
     </ui:composition>

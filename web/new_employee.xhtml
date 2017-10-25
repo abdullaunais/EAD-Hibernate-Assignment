@@ -8,23 +8,29 @@
 
     <ui:define name="body">
         <h:form>
-            <h:panelGrid id="panel1" columns="2" border="1"
-                         cellpadding="5" cellspacing="1">
-                <f:facet name="header">
-                    <h:outputText value="Employee Information"/>
-                </f:facet>
-                <h:outputLabel value="Name:"/>
-                <h:inputText value="#{employeeController.newName}" id="fn"/>
-                <h:outputLabel value="Role :"/>
-                <h:selectOneMenu value="#{employeeController.selectedRole}" id="ulist">
-                    <f:selectItems value="#{employeeController.allRoles}"/>
-                </h:selectOneMenu>
-                <f:facet name="footer">
-                    <h:commandButton value="Save" action="#{employeeController.saveCustomer}">
+
+            <div class="card" style="width: 25rem; padding: 20px 30px;">
+                <div class="card-body">
+                    <h4 class="card-title">New Employee</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">Enter Employee Information</h6>
+
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Name </span>
+                        <h:inputText class="form-control" value="#{employeeController.newName}" id="fn"/>
+                    </div>
+
+                    <div class="input-group" style="margin-top: 25px;">
+                        <span class="input-group-addon" id="basic-addon1">Role </span>
+                        <h:selectOneMenu class="form-control" style="margin-left: 22px;" value="#{employeeController.selectedRole}" id="ulist">
+                            <f:selectItems value="#{employeeController.allRoles}"/>
+                        </h:selectOneMenu>
+                    </div>
+
+                    <h:commandButton class="btn btn-primary" style="width: 100%; padding: 12px 0;margin-top: 25px;" value="Save" action="#{employeeController.saveCustomer}">
                         <f:ajax render="fn ln eml s msg" execute="@form"/>
                     </h:commandButton>
-                </f:facet>
-            </h:panelGrid>      
+                </div>
+            </div>   
         </h:form>
     </ui:define>
 </ui:composition>
