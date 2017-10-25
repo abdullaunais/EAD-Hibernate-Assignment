@@ -8,6 +8,11 @@
 
         <ui:define name="body">
             <h:form>
+                <h:commandLink class="btn btn-success" action="#{roleController.addNew}">
+                    <i class="fa fa-address-card"></i> &nbsp;Add Role
+                </h:commandLink>
+                <br/>
+                <br/>
                 <h:commandLink action="#{roleController.previous}" value="Previous #{roleController.pageSize}" rendered="#{roleController.hasPreviousPage}"/> 
                 <h:commandLink action="#{roleController.next}" value="Next #{roleController.pageSize}" rendered="#{roleController.hasNextPage}"/>
 
@@ -26,13 +31,15 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value=" "/>
+                            <h:outputText value="Actions"/>
                         </f:facet>
-                        <h:commandLink action="#{roleController.prepareView}" value="View"/>
+                        <h:commandLink class="btn btn-primary" style="margin: 4px 0;" action="#{roleController.prepareView}">
+                            <i class="fa fa-chevron-circle-right"></i>
+                        </h:commandLink>
                     </h:column>
                 </h:dataTable>
                 <br/>
-                <h:commandLink class="btn btn-success" action="#{roleController.addNew}" value="Add Role"/>
+                
             </h:form>
         </ui:define>
     </ui:composition>

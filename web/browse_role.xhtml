@@ -2,22 +2,41 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./template.xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
 
-        <ui:define name="body">
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="ID:"/>
-                    <h:outputText value="#{roleController.selected.roleid}" title="ID"/>
-                    <h:outputText value="Title:"/>
-                    <h:outputText value="#{roleController.selected.title}" title="Title"/>
-                </h:panelGrid>
-                <br/>
-                <br/>
-                <h:commandLink class="btn btn-primary" action="#{roleController.prepareList}" value="View All Roles"/>
-                <br/>
-            </h:form>
+    <ui:define name="body">
+        <h:form>
 
-        </ui:define>
-    </ui:composition>
+            <div class="card" style="width: 20rem; padding-bottom: 20px;">
+                <img class="card-img-top" style="width: 20rem; object-fit: cover; margin-bottom: 15px;" src="resources/img/role.png"/>
+                <div class="card-body">
+                    <h6>
+                        Role #<h:outputText value="#{roleController.selected.roleid}" title="ID"/>
+                    </h6>
+                    <h6 class="card-title" style="margin-bottom:0; margin-top: 0.75rem;">
+                        <h:outputText value="#{roleController.selected.title}" title="Title"/>
+                    </h6>
+                </div>
+            </div>
+            <div class="card" style="width: 20rem; padding: 20px 30px;">
+                <div class="card-body">
+                    <h6>Update Role</h6>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Title </span>
+                        <h:inputText class="form-control" value="#{roleController.updateTitle}" id="fn"/>
+                    </div>
+
+                    <h:commandButton class="btn btn-primary" style="width: 100%; padding: 12px 0;margin-top: 25px;" value="Save" action="#{roleController.updateRole}">
+                        <f:ajax render="fn ln eml s msg" execute="@form"/>
+                    </h:commandButton>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <h:commandLink class="btn btn-primary" action="#{roleController.prepareList}" value="View All Roles"/>
+            <br/>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

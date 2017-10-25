@@ -32,7 +32,7 @@ public class EmployeeHelper {
         Session session = HibernateUtil.getCurrentSession();
         try {
             tx = session.beginTransaction();
-            Query q = session.createQuery("select e from Employee as e where employeeid between " + startId + " and " + endId);
+            Query q = session.createQuery("select e from Employee as e");
             empList = (List<Employee>) q.list();
             tx.commit();
         } catch (Exception e) {
@@ -78,21 +78,22 @@ public class EmployeeHelper {
      * @param name
      * @param empID
      */
-    public void updateEmployee(String name, int empID) {
+    public Employee updateEmployee(String name, int empID) {
         Transaction tx = null;
         Session session = HibernateUtil.getCurrentSession();
         try {
             tx = session.beginTransaction();
-            Employee dbEmp = (Employee) session.createQuery(
-                    "select e from Employee as e where e.employeeID = :eid"
+            Employee employee = (Employee) session.createQuery(
+                    "select e from Employee as e where e.employeeid = :eid"
             ).setParameter("eid", empID).uniqueResult();
 
-            dbEmp.setName(name);
-            session.update(dbEmp);
+            employee.setName(name);
+            session.update(employee);
             tx.commit();
+            return employee;
         } catch (RuntimeException e) {
             e.printStackTrace();
-            
         }
+        return null;
     }
 }

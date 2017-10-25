@@ -28,11 +28,13 @@ public class TaskController implements Serializable {
     DataModel tasks;
     TaskHelper helper;
     private int recordCount = 1000;
-    private int pageSize = 50;
+    private int pageSize = 10;
 
     private Task current;
     private int selectedItemIndex;
     private String newDescription;
+
+    private String updateDescription;
 
     /**
      * Creates a new instance of TaskController
@@ -47,6 +49,18 @@ public class TaskController implements Serializable {
         helper = new TaskHelper();
         this.startId = startId;
         this.endId = endId;
+    }
+    
+    public String updateTask() {
+        System.out.println("name: " + this.updateDescription);
+
+        helper = new TaskHelper();
+        Task updated;
+        updated = helper.updateTask(this.updateDescription, current.getTaskid());
+        recreateModel();
+        getTasks();
+        current = updated;
+        return "task_list";
     }
 
     public Task getSelected() {
@@ -68,11 +82,11 @@ public class TaskController implements Serializable {
     void recreateModel() {
         tasks = null;
     }
-    
+
     public String getNewDescription() {
         return newDescription;
     }
-    
+
     public void setNewDescription(String newDescription) {
         this.newDescription = newDescription;
     }
@@ -88,6 +102,11 @@ public class TaskController implements Serializable {
     }
 
     public boolean isHasNextPage() {
+        if (tasks != null) {
+            recordCount = tasks.getRowCount();
+        } else {
+            return false;
+        }
         if (endId + pageSize <= recordCount) {
             return true;
         }
@@ -143,5 +162,19 @@ public class TaskController implements Serializable {
 
     public String goToTasks() {
         return "task_list";
+    }
+
+    /**
+     * @return the updateDescription
+     */
+    public String getUpdateDescription() {
+        return updateDescription;
+    }
+
+    /**
+     * @param updateDescription the updateDescription to set
+     */
+    public void setUpdateDescription(String updateDescription) {
+        this.updateDescription = updateDescription;
     }
 }

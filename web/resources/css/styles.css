@@ -4,4 +4,9 @@ td {
 
 th {
 	padding: 5px 10px;
+	color: #999;
+}
+
+table {
+	border: 1px solid #ccc !important;
 }

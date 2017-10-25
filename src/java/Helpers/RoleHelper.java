@@ -69,22 +69,23 @@ public class RoleHelper {
      * @param title
      * @param roleID
      */
-    public void updateRole(String title, int roleID) {
+    public Role updateRole(String title, int roleID) {
         Transaction tx = null;
         Session session = HibernateUtil.getCurrentSession();
         try {
             tx = session.beginTransaction();
-            Role dbRole = (Role) session.createQuery(
+            Role role = (Role) session.createQuery(
                     "select r from Role as r where r.roleid = :eid"
             ).setParameter("eid", roleID).uniqueResult();
 
-            dbRole.setTitle(title);
-            session.update(dbRole);
+            role.setTitle(title);
+            session.update(role);
             tx.commit();
-
+            return role;
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public Role getRoleById(int roleId) {

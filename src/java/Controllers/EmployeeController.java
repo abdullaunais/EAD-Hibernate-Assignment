@@ -75,6 +75,18 @@ public class EmployeeController implements Serializable {
         return updateName;
     }
 
+    public String updateEmployee() {
+        System.out.println("name: " + this.updateName);
+
+        helper = new EmployeeHelper();
+        Employee updated;
+        updated = helper.updateEmployee(this.updateName, current.getEmployeeid());
+        recreateModel();
+        getEmployees();
+        current = updated;
+        return "employee_list";
+    }
+
     public void setUpdateName(String updateName) {
         this.updateName = updateName;
     }
@@ -186,6 +198,7 @@ public class EmployeeController implements Serializable {
         current = (Employee) getEmployees().getRowData();
         rHelper = new RoleHelper();
         currentRole = rHelper.getRoleById(current.getRole());
+        getRoleList();
         return "browse_employee";
     }
 

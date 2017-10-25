@@ -67,21 +67,22 @@ public class TaskHelper {
      * @param description
      * @param taskID 
      */
-    public void updateTask(String description, int taskID) {
+    public Task updateTask(String description, int taskID) {
         Transaction tx = null;
         Session session = HibernateUtil.getCurrentSession();
         try {
             tx = session.beginTransaction();
-            Task dbRole = (Task) session.createQuery(
+            Task task = (Task) session.createQuery(
                     "select t from Task as t where t.taskid = :eid"
             ).setParameter("eid", taskID).uniqueResult();
 
-            dbRole.setDescription(description);
-            session.update(dbRole);
+            task.setDescription(description);
+            session.update(task);
             tx.commit();
-
+            return task;
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }

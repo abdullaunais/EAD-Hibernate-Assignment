@@ -29,6 +29,10 @@
                     <span class="input-group-addon" id="basic-addon1">Name </span>
                     <h:inputText class="form-control" value="#{employeeController.updateName}" id="fn"/>
                     </div>
+                    
+                    <h:commandButton class="btn btn-primary" style="width: 100%; padding: 12px 0;margin-top: 25px;" value="Save" action="#{employeeController.updateEmployee}">
+                        <f:ajax render="fn ln eml s msg" execute="@form"/>
+                    </h:commandButton>
                 </div>
             </div>
             <br/>

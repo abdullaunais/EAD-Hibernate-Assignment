@@ -35,6 +35,8 @@ public class RoleController implements Serializable {
     private Role current;
     private int selectedItemIndex;
     private String newTitle;
+    
+    private String updateTitle;
 
     /**
      * Creates a new instance of RoleController
@@ -87,6 +89,18 @@ public class RoleController implements Serializable {
 
     void recreateModel() {
         roleTitles = null;
+    }
+
+    public String updateRole() {
+        System.out.println("name: " + this.getUpdateTitle());
+
+        helper = new RoleHelper();
+        Role updated;
+        updated = helper.updateRole(this.updateTitle, current.getRoleid());
+        recreateModel();
+        getRoles();
+        current = updated;
+        return "role_list";
     }
 
     public boolean isHasNextPage() {
@@ -150,5 +164,19 @@ public class RoleController implements Serializable {
 
     public String goToTasks() {
         return "task_list";
+    }
+
+    /**
+     * @return the updateTitle
+     */
+    public String getUpdateTitle() {
+        return updateTitle;
+    }
+
+    /**
+     * @param updateTitle the updateTitle to set
+     */
+    public void setUpdateTitle(String updateTitle) {
+        this.updateTitle = updateTitle;
     }
 }
